@@ -8,11 +8,8 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 
-
 	<name>cqrs</name>
 	<description>Demo project for CQRS</description>
-
-
 
 	<modules>
 		<module>in-one-class</module>
@@ -24,30 +21,6 @@
 		<module>with-events-source</module>
 
 	</modules>
-
-	<build>
-		<pluginManagement>
-			<plugins>
-				<plugin>
-					<groupId>org.springframework.boot</groupId>
-					<artifactId>spring-boot-maven-plugin</artifactId>
-				</plugin>
-				<plugin>
-					<groupId>org.apache.maven.plugins</groupId>
-					<artifactId>maven-surefire-plugin</artifactId>
-					<version>2.20</version>
-					<configuration>
-						<includes>
-							<include>**/*Spec.*</include>
-							<include>**/*Tests.*</include>
-							<include>**/*Test.*</include>
-						</includes>
-						<reportFormat>plain</reportFormat>
-					</configuration>
-				</plugin>
-			</plugins>
-		</pluginManagement>
-	</build>
 
 
 </project>
