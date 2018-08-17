@@ -6,7 +6,7 @@
 	<groupId>io.dddbyexamples</groupId>
 	<artifactId>with-events-source</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>pom</packaging>
+	<packaging>jar</packaging>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
