@@ -17,8 +17,7 @@
 		<module>explicit-with-dto</module>
 		<module>with-trigger</module>
 		<module>with-log-tailing</module>
-		<module>with-events-sink</module>
-		<module>with-events-source</module>
+		<module>with-events</module>
 
 	</modules>
 

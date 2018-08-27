@@ -1,5 +1,12 @@
 version: '2'
 services:
+  app:
+    build: .
+    ports:
+      - 8080:8080
+    links:
+      - mysql
+      - kafka
   zookeeper:
     image: debezium/zookeeper:0.8
     ports:
@@ -14,7 +21,7 @@ services:
      - zookeeper
     environment:
      - ZOOKEEPER_CONNECT=zookeeper:2181
-     - ADVERTISED_LISTENERS=PLAINTEXT://192.168.1.110:9092
+     - ADVERTISED_LISTENERS=PLAINTEXT://172.20.10.2:9092
   mysql:
     image: debezium/example-mysql:0.8
     ports:

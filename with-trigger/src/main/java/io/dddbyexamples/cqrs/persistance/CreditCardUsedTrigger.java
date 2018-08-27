@@ -16,16 +16,23 @@ public class CreditCardUsedTrigger implements Trigger {
     }
 
     @Override
-    public void fire(Connection connection, Object[] oldRow, Object[] newRow) throws SQLException {
+    public void fire(Connection connection, Object[] before, Object[] after) throws SQLException {
         try (PreparedStatement stmt = connection.prepareStatement(
                 "INSERT INTO WITHDRAWAL (ID, CARD_ID, AMOUNT) " + "VALUES (?, ?, ?)")) {
-            stmt.setObject(1, UUID.randomUUID());
-            stmt.setObject(2, newRow[0]);
-            stmt.setObject(3, ((BigDecimal) newRow[2]).subtract((BigDecimal) oldRow[2]));
-
+            stmt.setObject(1, UUID.randomUUID()); //generate withdrawal id
+            stmt.setObject(2, cardId(after));
+            stmt.setObject(3, getUsedLimitChange(before, after));
 
             stmt.executeUpdate();
         }
+    }
+
+    private Object cardId(Object[] cardRow) {
+        return cardRow[0];
+    }
+
+    private BigDecimal getUsedLimitChange(Object[] oldCardRow, Object[] newCardRow) {
+        return ((BigDecimal) newCardRow[2]).subtract((BigDecimal) oldCardRow[2]);
     }
 
     @Override
