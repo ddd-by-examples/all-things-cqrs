@@ -43,14 +43,23 @@ mvn spring-boot:run
 A sample *Withdraw* command:
 
 ```
-until finished
+curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}' --verbose
+```
+Verifed by a query:
+```
+curl http://localhost:8080/withdrawals?cardId=3a3e99f0-5ad9-47fa-961d-d75fab32ef0e --verbose
+```
+Expected result:
+```
+[{"amount":10.00}]
 ```
 
-End with an example of getting some data out of the system or using it for a little demo
+Architecture overview:
 
-## Running the tests
+[in-one-class](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/inoneclass.jpg) 
 
-Explain how to run the automated tests for this system
+### Commands and queries handled in one class (no CQRS)
+
 
 ### Break down into end to end tests
 
