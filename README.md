@@ -10,9 +10,8 @@ These instructions will get you and overview of how to apply CQRS. Each module r
 
 What things you need to run the software:
 
-  *Java 8+
-
-  *[docker-compose](https://docs.docker.com/compose/)
+* Java 8+
+* [docker-compose](https://docs.docker.com/compose/)
 
 ### Installing
 
