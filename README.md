@@ -140,8 +140,6 @@ Architecture overview:
 
 ![trigger](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/trigger.jpg) 
 
-![application-process](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/appprocess.jpg) 
-
 Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-trigger/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
 
 ```java
@@ -162,13 +160,28 @@ Synchronization done by listening to database's [transaction log](https://en.wik
 
 Code can be found under [log-tailing](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-log-tailing) module.
 
-Running the app:
-```
-mvn spring-boot:run
-```
+Components:
+*  MySQL to keep withdrawals and credit cards.
+*  [Apache Kafka](https://kafka.apache.org) for pub/sub for messages read from database transaction log (in this case it is MySQL).
+*  [Kafka Connect](https://www.confluent.io/product/connectors/) with Debezium to read MySQL’s transaction log and stream messages to Kafka’s topic.
+*  [Spring Cloud Stream](https://cloud.spring.io/spring-cloud-stream/) to read messages from Kafka’s topic.
 
+
+Running the app, remember to be in **root** of the project:
+
+* In *docker-compose.yaml*, under service *kafka* - **CHANGE** IP to match your host machine. Keep port pointing to 9092:
+```
+ADVERTISED_LISTENERS=PLAINTEXT://YOUR_HOST_IP:9092
+```
+* Run the whole infrastructure:
+```
+docker-compose up
+```
+* Tell Kafka Connect to tail transaction log of MySQL DB and send messages to Kafka:
+```
+curl -i -X POST -H "Accept:application/json" -H  "Content-Type:application/json" http://localhost:8083/connectors/ -d @source.json --verbose
+```
 A sample *Withdraw* command:
-
 ```
 curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}' --verbose
 ```
@@ -183,9 +196,7 @@ Expected result can be seen below. Remember that it takes time to read transacti
 
 Architecture overview:
 
-![trigger](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/trigger.jpg) 
-
-![application-process](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/appprocess.jpg) 
+![logtailing](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/transactionlog.jpg) 
 
 Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-trigger/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
 
