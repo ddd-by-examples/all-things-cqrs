@@ -198,15 +198,15 @@ Architecture overview:
 
 ![logtailing](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/transactionlog.jpg) 
 
-Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-trigger/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
+Since it is problematic (or immposible) to test transaction log tailing, there is no E2E test that verifies commands and queries. But we can test if a message arrival in Kafka's topic results in a proper withdrawal created. The code is [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-log-tailing/src/test/java/io/dddbyexamples/cqrs/sink/ReadModelUpdaterTest.java):
 
 ```java
-   @Test
-    public void shouldSynchronizeQuerySideAfterSendingACommand() {
+  @Test
+    public void shouldSynchronizeQuerySideAfterLogTailing() {
         // given
-        UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
+        String cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100));
         // when
-        clientWantsToWithdraw(TEN, cardUUid); //HTTP GET
+        creditCardUpdateReadFromDbTransactionLog(TEN, cardUUid);
         // then
         thereIsOneWithdrawalOf(TEN, cardUUid);
     }
