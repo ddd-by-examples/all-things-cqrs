@@ -17,26 +17,30 @@ What things you need to run the software:
 
 Sample applications are based on a simple domain that serves credit cards. There are two usecases:
 
-*  Money can be withdrawn from a card (Withdraw *command*)
-*  List of withdrawals from a card can be read (*query*)
+*  Money can be withdrawn from a card (*Withdraw* **command**)
+*  List of withdrawals from a card can be read (**query**)
 
 The imporant is that:
+```
+After a successful Withdraw command, a withdrawal should be seen in a result from list of withdrawals query.
+```
 
-```
-After issuing a Withdraw command, a withdrawal should be seen in a result from list of withdrawals query (if the command was successful)
-```
+Hence there is a need for some **synchronization** that makes state for commands and queries consistent.
+
+Let's agree on a color code for commands, queries and synchronization. It will make our drawings consistent.
+
+![color code](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/colorcode.jpg "Color code")
 
 ### Commands and queries handled in one class (no CQRS)
 
-Can be found under [in-one-class](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/in-one-class) module. 
+Code can be found under [in-one-class](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/in-one-class) module. 
 
-
-
+Running the app:
 ```
-Give the example
+mvn spring-boot:run
 ```
 
-And repeat
+A sample *Withdraw* command:
 
 ```
 until finished
