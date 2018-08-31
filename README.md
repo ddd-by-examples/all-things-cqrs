@@ -13,11 +13,24 @@ What things you need to run the software:
 * Java 8+
 * [docker-compose](https://docs.docker.com/compose/)
 
-### Installing
+## Overview
 
-A step by step series of examples that tell you how to get a development env running
+Sample applications are based on a simple domain that serves credit cards. There are two usecases:
 
-Say what the step will be
+*  Money can be withdrawn from a card (Withdraw *command*)
+*  List of withdrawals from a card can be read (*query*)
+
+The imporant is that:
+
+```
+After issuing a Withdraw command, a withdrawal should be seen in a result from list of withdrawals query (if the command was successful)
+```
+
+### Commands and queries handled in one class (no CQRS)
+
+Can be found under [in-one-class](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/in-one-class) module. 
+
+
 
 ```
 Give the example
