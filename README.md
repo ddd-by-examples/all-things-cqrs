@@ -1,17 +1,21 @@
-# Project Title
+# All Things CQRS
 
-One Paragraph of project description goes here
+A bunch of ways of doing [CQRS](https://martinfowler.com/bliki/CQRS.html) with various [Spring](https://spring.io) tools.
 
 ## Getting Started
 
-These instructions will get you a copy of the project up and running on your local machine for development and testing purposes. See deployment for notes on how to deploy the project on a live system.
+These instructions will get you and overview of how to apply CQRS. Each module represents a different way of introducing this pattern. Also, each module is a standalone [Spring Boot](https://spring.io/projects/spring-boot) application. 
 
 ### Prerequisites
 
-What things you need to install the software and how to install them
+What things you need to run the software:
 
 ```
-Give examples
+Java 8+
+```
+
+```
+[docker-compose](https://docs.docker.com/compose/)
 ```
 
 ### Installing
