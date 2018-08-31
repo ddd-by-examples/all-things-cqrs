@@ -25,7 +25,7 @@ The imporant is that:
 After a successful Withdraw command, a withdrawal should be seen in a result from list of withdrawals query.
 ```
 
-Hence there is a need to some **synchronization** mechanism that makes sure state for commands and queries is consistent.
+Hence there is a need for some **synchronization** that makes state for commands and queries consistent.
 
 Let's agree on a color code for commands, queries and synchronization. It will make our drawings consistent.
 
@@ -33,15 +33,14 @@ Let's agree on a color code for commands, queries and synchronization. It will m
 
 ### Commands and queries handled in one class (no CQRS)
 
-Can be found under [in-one-class](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/in-one-class) module. 
+Code can be found under [in-one-class](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/in-one-class) module. 
 
-
-
+Running the app:
 ```
-Give the example
+mvn spring-boot:run
 ```
 
-And repeat
+A sample *Withdraw* command:
 
 ```
 until finished
