@@ -99,6 +99,20 @@ Architecture overview:
 
 ![application-process](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/appprocess.jpg) 
 
+Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/explicit-with-dto/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
+
+```java
+   @Test
+    public void shouldSynchronizeQuerySideAfterSendingACommand() {
+        // given
+        UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
+        // when
+        clientWantsToWithdraw(TEN, cardUUid); //HTTP GET
+        // then
+        thereIsOneWithdrawalOf(TEN, cardUUid);
+    }
+```
+
 ### CQRS with trigger as implicit synchronization
 
 Code can be found under [trigger](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-trigger) module.
@@ -126,21 +140,66 @@ Architecture overview:
 
 ![trigger](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/trigger.jpg) 
 
+![application-process](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/appprocess.jpg) 
+
+Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-trigger/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
+
+```java
+   @Test
+    public void shouldSynchronizeQuerySideAfterSendingACommand() {
+        // given
+        UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
+        // when
+        clientWantsToWithdraw(TEN, cardUUid); //HTTP GET
+        // then
+        thereIsOneWithdrawalOf(TEN, cardUUid);
+    }
 ```
-Give an example
+
+### CQRS with transaction log tailing as synchronization
+
+Synchronization done by listening to database's [transaction log](https://en.wikipedia.org/wiki/Transaction_log), which is a log of transactions accepted by a database management system.
+
+Code can be found under [log-tailing](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-log-tailing) module.
+
+Running the app:
+```
+mvn spring-boot:run
 ```
 
-### And coding style tests
-
-Explain what these tests test and why
+A sample *Withdraw* command:
 
 ```
-Give an example
+curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}' --verbose
+```
+Verifed by a query:
+```
+curl http://localhost:8080/withdrawals?cardId=3a3e99f0-5ad9-47fa-961d-d75fab32ef0e --verbose
+```
+Expected result can be seen below. Remember that it takes time to read transaction log and create a withdrawal. Hence a withdrawal might be not immedietly seen:
+```
+[{"amount":10.00}]
 ```
 
-## Deployment
+Architecture overview:
 
-Add additional notes about how to deploy this on a live system
+![trigger](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/trigger.jpg) 
+
+![application-process](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/appprocess.jpg) 
+
+Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-trigger/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
+
+```java
+   @Test
+    public void shouldSynchronizeQuerySideAfterSendingACommand() {
+        // given
+        UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
+        // when
+        clientWantsToWithdraw(TEN, cardUUid); //HTTP GET
+        // then
+        thereIsOneWithdrawalOf(TEN, cardUUid);
+    }
+```
 
 ## Built With
 
