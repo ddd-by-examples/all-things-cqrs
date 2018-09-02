@@ -229,6 +229,11 @@ Additional components:
 
 Running the app, remember to be in **root** of the project:
 
+*  Run the whole infrastructure:
+```
+docker-compose up
+```
+
 A sample *Withdraw* command:
 ```
 curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}' --verbose
