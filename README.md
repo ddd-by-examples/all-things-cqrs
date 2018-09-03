@@ -61,7 +61,7 @@ Architecture overview:
 Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/in-one-class/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
 
 ```java
-   @Test
+    @Test
     public void shouldSynchronizeQuerySideAfterSendingACommand() {
         // given
         UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
@@ -102,7 +102,7 @@ Architecture overview:
 Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/explicit-with-dto/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
 
 ```java
-   @Test
+    @Test
     public void shouldSynchronizeQuerySideAfterSendingACommand() {
         // given
         UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
@@ -143,7 +143,7 @@ Architecture overview:
 Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-trigger/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
 
 ```java
-   @Test
+    @Test
     public void shouldSynchronizeQuerySideAfterSendingACommand() {
         // given
         UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
@@ -158,7 +158,7 @@ Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-ex
 
 Synchronization done by listening to database's [transaction log](https://en.wikipedia.org/wiki/Transaction_log), which is a log of transactions accepted by a database management system.
 
-Code can be found under [log-tailing](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-log-tailing) module.
+Code can be found under [with-log-tailing](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-log-tailing) module.
 
 Additional components:
 *  MySQL to keep withdrawals and credit cards.
@@ -201,7 +201,7 @@ Architecture overview:
 Since it is problematic (or immposible) to test transaction log tailing, there is no E2E test that verifies commands and queries. But we can test if a message arrival in Kafka's topic results in a proper withdrawal created. The code is [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-log-tailing/src/test/java/io/dddbyexamples/cqrs/sink/ReadModelUpdaterTest.java):
 
 ```java
-  @Test
+    @Test
     public void shouldSynchronizeQuerySideAfterLogTailing() {
         // given
         String cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100));
@@ -254,7 +254,7 @@ Architecture overview:
 Since it is not recommended to test 2 microservices in one test, there is no E2E test that verifies commands and queries. But we can test if a message arrival in Kafka's topic results in a proper withdrawal created. The code is [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-events/with-events-sink/src/test/java/io/dddbyexamples/cqrs/sink/ReadModelUpdaterTest.java):
 
 ```java
-  @Test
+    @Test
     public void shouldSeeWithdrawalAfterGettingAnEvent() {
         //when
         anEventAboutWithdrawalCame(TEN, cardID);
@@ -266,7 +266,7 @@ Since it is not recommended to test 2 microservices in one test, there is no E2E
 Also it is possible to test if a successful withdrawal is followed eventually by a proper domain event publication. The code is [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-events/with-events-source/src/test/java/io/dddbyexamples/cqrs/EventsPublishingTest.java). 
 
 ```java
-   @Test
+    @Test
     public void shouldEventuallySendAnEventAboutCardWithdrawal() throws IOException {
         // given
         UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100));
