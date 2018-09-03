@@ -138,7 +138,7 @@ Expected result:
 
 Architecture overview:
 
-![appevents](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/appevents.jpg) 
+![appevents](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/appevents.jpeg) 
 
 Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-application-events/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
 
