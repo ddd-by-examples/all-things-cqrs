@@ -61,7 +61,7 @@ Architecture overview:
 Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/in-one-class/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
 
 ```java
-   @Test
+    @Test
     public void shouldSynchronizeQuerySideAfterSendingACommand() {
         // given
         UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
@@ -102,7 +102,7 @@ Architecture overview:
 Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/explicit-with-dto/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
 
 ```java
-   @Test
+    @Test
     public void shouldSynchronizeQuerySideAfterSendingACommand() {
         // given
         UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
@@ -143,7 +143,7 @@ Architecture overview:
 Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-trigger/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
 
 ```java
-   @Test
+    @Test
     public void shouldSynchronizeQuerySideAfterSendingACommand() {
         // given
         UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
@@ -158,12 +158,12 @@ Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-ex
 
 Synchronization done by listening to database's [transaction log](https://en.wikipedia.org/wiki/Transaction_log), which is a log of transactions accepted by a database management system.
 
-Code can be found under [log-tailing](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-log-tailing) module.
+Code can be found under [with-log-tailing](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-log-tailing) module.
 
-Components:
+Additional components:
 *  MySQL to keep withdrawals and credit cards.
 *  [Apache Kafka](https://kafka.apache.org) for pub/sub for messages read from database transaction log (in this case it is MySQL).
-*  [Kafka Connect](https://www.confluent.io/product/connectors/) with Debezium to read MySQL’s transaction log and stream messages to Kafka’s topic.
+*  [Kafka Connect](https://www.confluent.io/product/connectors/) with [Debezium](https://debezium.io) to read MySQL’s transaction log and stream messages to Kafka’s topic.
 *  [Spring Cloud Stream](https://cloud.spring.io/spring-cloud-stream/) to read messages from Kafka’s topic.
 
 
@@ -201,7 +201,7 @@ Architecture overview:
 Since it is problematic (or immposible) to test transaction log tailing, there is no E2E test that verifies commands and queries. But we can test if a message arrival in Kafka's topic results in a proper withdrawal created. The code is [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-log-tailing/src/test/java/io/dddbyexamples/cqrs/sink/ReadModelUpdaterTest.java):
 
 ```java
-  @Test
+    @Test
     public void shouldSynchronizeQuerySideAfterLogTailing() {
         // given
         String cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100));
@@ -211,33 +211,68 @@ Since it is problematic (or immposible) to test transaction log tailing, there i
         thereIsOneWithdrawalOf(TEN, cardUUid);
     }
 ```
+### CQRS with Domain Events as synchronization
 
-## Built With
+Synchronization done by sending a domain event after succesfully handling a command.
 
-* [Dropwizard](http://www.dropwizard.io/1.0.2/docs/) - The web framework used
-* [Maven](https://maven.apache.org/) - Dependency Management
-* [ROME](https://rometools.github.io/rome/) - Used to generate RSS Feeds
+Code can be found under [events](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-events) module. It has 2 further modules, architecture is fully distributed. There is a [source](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-events/with-events-source) (deals with commands) and [sink](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-events/with-events-sink) (deals with queries).
 
-## Contributing
 
-Please read [CONTRIBUTING.md](https://gist.github.com/PurpleBooth/b24679402957c63ec426) for details on our code of conduct, and the process for submitting pull requests to us.
+Additional components:
+*  MySQL to keep credit cards.
+*  [MongoDB](https://www.mongodb.com/what-is-mongodb) to keep withdrawals.
+*  Spring Data Reactive MongoDb to reactively talk to Mongo
+*  [Project Reactor](http://projectreactor.io) to serve non-blocking web-service
+*  [Apache Kafka](https://kafka.apache.org) for pub/sub for domain events
+*  [Spring Cloud Stream](https://cloud.spring.io/spring-cloud-stream/) to read/write messages from/to Kafka’s topic.
 
-## Versioning
 
-We use [SemVer](http://semver.org/) for versioning. For the versions available, see the [tags on this repository](https://github.com/your/project/tags). 
+Running the app, remember to be in **root** of the project:
 
-## Authors
+*  Run the whole infrastructure:
+```
+docker-compose up
+```
 
-* **Billie Thompson** - *Initial work* - [PurpleBooth](https://github.com/PurpleBooth)
+A sample *Withdraw* command:
+```
+curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}' --verbose
+```
+Verifed by a query (notifce a different port: **8888**!):
+```
+curl http://localhost:8888/withdrawals?cardId=3a3e99f0-5ad9-47fa-961d-d75fab32ef0e --verbose
+```
+Expected result can be seen below. Remember that it takes time to publish and read domain events from Kafka. Hence a withdrawal might be not immedietly seen:
+```
+[{"amount":10.00}]
+```
 
-See also the list of [contributors](https://github.com/your/project/contributors) who participated in this project.
+Architecture overview:
 
-## License
+![events](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/events.jpg) 
 
-This project is licensed under the MIT License - see the [LICENSE.md](LICENSE.md) file for details
+Since it is not recommended to test 2 microservices in one test, there is no E2E test that verifies commands and queries. But we can test if a message arrival in Kafka's topic results in a proper withdrawal created. The code is [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-events/with-events-sink/src/test/java/io/dddbyexamples/cqrs/sink/ReadModelUpdaterTest.java):
 
-## Acknowledgments
+```java
+    @Test
+    public void shouldSeeWithdrawalAfterGettingAnEvent() {
+        //when
+        anEventAboutWithdrawalCame(TEN, cardID);
 
-* Hat tip to anyone whose code was used
-* Inspiration
-* etc
+        //then
+        thereIsOneWithdrawalOf(TEN, cardID);
+    }
+```
+Also it is possible to test if a successful withdrawal is followed eventually by a proper domain event publication. The code is [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-events/with-events-source/src/test/java/io/dddbyexamples/cqrs/EventsPublishingTest.java). 
+
+```java
+    @Test
+    public void shouldEventuallySendAnEventAboutCardWithdrawal() throws IOException {
+        // given
+        UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100));
+        // when
+        clientWantsToWithdraw(TEN, cardUUid);
+        // then
+        await().atMost(FIVE_SECONDS).until(() -> eventAboutWithdrawalWasSent(TEN, cardUUid));
+    }
+```
