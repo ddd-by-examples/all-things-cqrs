@@ -10,11 +10,12 @@ import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
+@Getter
 @NoArgsConstructor
 public class Withdrawal {
 
     @Id @GeneratedValue private UUID id;
-    private @Getter BigDecimal amount;
+    private BigDecimal amount;
     private UUID cardId;
 
     Withdrawal(BigDecimal amount, UUID cardNo) {
