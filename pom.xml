@@ -18,6 +18,8 @@
 		<module>with-trigger</module>
 		<module>with-log-tailing</module>
 		<module>with-events</module>
+		<module>with-application-events</module>
+
 
 	</modules>
 
