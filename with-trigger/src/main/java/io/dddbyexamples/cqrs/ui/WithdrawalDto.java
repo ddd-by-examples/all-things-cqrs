@@ -11,7 +11,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 public class WithdrawalDto {
-    private UUID card;
+    private UUID cardId;
     private BigDecimal amount;
 
 }
