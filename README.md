@@ -113,6 +113,48 @@ Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-ex
     }
 ```
 
+### CQRS with spring application events as implicit synchronization
+
+Code can be found under [with-application-events](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-application-events) module.
+
+Running the app:
+```
+mvn spring-boot:run
+```
+
+A sample *Withdraw* command:
+
+```
+curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}' --verbose
+```
+Verifed by a query:
+```
+curl http://localhost:8080/withdrawals?cardId=3a3e99f0-5ad9-47fa-961d-d75fab32ef0e --verbose
+```
+Expected result:
+```
+[{"amount":10.00}]
+```
+
+Architecture overview:
+
+![appevents](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/appevents.jpg) 
+
+Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-application-events/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
+
+```java
+    @Test
+    public void shouldSynchronizeQuerySideAfterSendingACommand() {
+        // given
+        UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100)); //HTTP POST
+        // when
+        clientWantsToWithdraw(TEN, cardUUid); //HTTP GET
+        // then
+        thereIsOneWithdrawalOf(TEN, cardUUid);
+    }
+```
+
+
 ### CQRS with trigger as implicit synchronization
 
 Code can be found under [trigger](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-trigger) module.
