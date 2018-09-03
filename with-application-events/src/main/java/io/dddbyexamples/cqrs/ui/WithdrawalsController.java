@@ -37,4 +37,3 @@ class WithdrawalsController {
                 new BeanPropertyRowMapper<>(WithdrawalDto.class));
     }
 }
-

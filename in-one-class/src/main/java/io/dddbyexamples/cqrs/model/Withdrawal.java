@@ -15,7 +15,7 @@ public class Withdrawal {
 
     @Id @GeneratedValue private UUID id;
     private @Getter BigDecimal amount;
-    private UUID cardId;
+    private @Getter UUID cardId;
 
     Withdrawal(BigDecimal amount, UUID cardNo) {
         this.amount = amount;

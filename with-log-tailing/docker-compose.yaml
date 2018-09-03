@@ -21,7 +21,7 @@ services:
      - zookeeper
     environment:
      - ZOOKEEPER_CONNECT=zookeeper:2181
-     - ADVERTISED_LISTENERS=PLAINTEXT://192.168.8.100:9092
+     - ADVERTISED_LISTENERS=${ADVERTISED_LISTENERS}
   mysql:
     image: debezium/example-mysql:0.8
     ports:

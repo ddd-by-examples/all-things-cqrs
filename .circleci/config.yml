@@ -1,0 +1,35 @@
+version: 2
+jobs:
+  build:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    steps:
+      - checkout
+
+      - restore_cache:
+          key: maven-dependencies-{{ checksum "pom.xml" }}
+
+      - run:
+          name: Download dependencies
+          command: mvn --fail-never dependency:go-offline || true
+
+      - save_cache:
+          key: maven-dependencies-{{ checksum "pom.xml" }}
+          paths:
+            - ~/.m2
+
+      - setup_remote_docker
+
+      - run:
+          name: Run acceptance tests
+          command: ./scripts/runAcceptanceTests.sh
+
+      - run:
+          when: always
+          name: Collect logs
+          command: |
+            mkdir /tmp/artifacts
+            cp target/*.log /tmp/artifacts/
+
+      - store_artifacts:
+          path: /tmp/artifacts

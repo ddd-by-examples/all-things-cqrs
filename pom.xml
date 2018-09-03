@@ -20,8 +20,6 @@
 		<module>with-events</module>
 		<module>with-application-events</module>
 
-
 	</modules>
-
 
 </project>

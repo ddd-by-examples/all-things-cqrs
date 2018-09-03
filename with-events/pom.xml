@@ -12,8 +12,6 @@
 	<modules>
 		<module>with-events-sink</module>
 		<module>with-events-source</module>
-
 	</modules>
-
 
 </project>
