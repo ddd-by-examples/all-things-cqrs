@@ -23,11 +23,11 @@ function default_tests() {
     echo -e "\n\nBUILDING [${appName}]\n\n"
     java_jar "${appName}"
     wait_for_app_to_boot_on_port 8080
-    echo "A sample Withdraw command"
+    echo -e "\n\nA sample Withdraw command"
     curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}'
-    echo "Verifed by a query"
+    echo -e "Verifed by a query\n\n"
     result="$( curl http://localhost:8080/withdrawals?cardId=3a3e99f0-5ad9-47fa-961d-d75fab32ef0e )"
-    if [[ "${result}" != "${verificationString}" ]]; then
+    if [[ "${result}" != *"${verificationString}"* ]]; then
         echo "Invalid response <${result}>"
         exit 1
     fi
@@ -39,7 +39,7 @@ function log_tailing() {
     appName="with-log-tailing"
     echo -e "\n\nBUILDING [${appName}]\n\n"
     pushd with-log-tailing
-        echo "Run the infra"
+        echo -e "\n\Run the infra"
         docker-compose up -d
         for i in $( seq 1 "${RETRIES}" ); do
             sleep "${WAIT_TIME}"
@@ -52,10 +52,10 @@ function log_tailing() {
             print_all_logs
         fi
     popd
-        echo "Start the app"
+        echo -e "\n\Start the app"
         java_jar "${appName}"
         wait_for_app_to_boot_on_port 8080
-        echo "A sample Withdraw command"
+        echo -e "A sample Withdraw command\n\n"
         curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}'
         echo "Verifed by a query (wait 2 seconds)"
         sleep 2
@@ -77,7 +77,7 @@ function with_events() {
         docker-compose up -d
         wait_for_app_to_boot_on_port 8888
         wait_for_app_to_boot_on_port 8080
-        echo "A sample Withdraw command"
+        echo -e "\n\A sample Withdraw command"
         curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}'
         echo "Verifed by a query (notifce a different port: 8888!) - wait 5 seconds"
         sleep 5
