@@ -1,36 +1,33 @@
 package io.dddbyexamples.cqrs.write.domain;
 
-import lombok.Getter;
-import lombok.NoArgsConstructor;
+import io.dddbyexamples.cqrs.write.domain.ports.CreditCardRecord;
+import io.dddbyexamples.cqrs.write.domain.produces.CardWithdrawn;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import java.math.BigDecimal;
 import java.util.UUID;
 
-@Entity
-@NoArgsConstructor
-public class CreditCard {
+class CreditCard {
 
-    @Id @GeneratedValue @Getter private UUID id;
-    private BigDecimal initialLimit;
-    private BigDecimal usedLimit = BigDecimal.ZERO;
+    private final UUID cardId;
+    private final BigDecimal initialLimit;
+    private final BigDecimal usedLimit;
 
-    public CreditCard(BigDecimal limit) {
-        this.initialLimit = limit;
+
+    CreditCard(CreditCardRecord record) {
+        this.initialLimit = record.getInitialLimit();
+        this.usedLimit = record.getUsedLimit();
+        this.cardId = record.getId();
     }
 
-    public CardWithdrawn withdraw(BigDecimal amount) {
+    CardWithdrawn withdraw(BigDecimal amount) {
         if (thereIsMoneyToWithdraw(amount)) {
-            usedLimit = usedLimit.add(amount);
-            return new CardWithdrawn(id, amount);
+            return new CardWithdrawn(cardId, amount);
         } else {
-            throw new NotEnoughMoneyException(id, amount, availableBalance());
+            throw new NotEnoughMoneyException(cardId, amount, availableBalance());
         }
     }
 
-    public BigDecimal availableBalance() {
+    private BigDecimal availableBalance() {
         return initialLimit.subtract(usedLimit);
     }
 

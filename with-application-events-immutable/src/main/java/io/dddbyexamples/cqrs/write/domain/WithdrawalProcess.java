@@ -1,28 +1,18 @@
 package io.dddbyexamples.cqrs.write.domain;
 
-import org.springframework.context.ApplicationEventPublisher;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import javax.transaction.Transactional;
 import java.math.BigDecimal;
 import java.util.UUID;
 
 @Service
+@AllArgsConstructor
 public class WithdrawalProcess {
 
-    private final CreditCardRepository creditCardRepository;
-    private final ApplicationEventPublisher applicationEventPublisher;
+    private final CreditCardRepository repository;
 
-    WithdrawalProcess(CreditCardRepository creditCardRepository, ApplicationEventPublisher applicationEventPublisher) {
-        this.creditCardRepository = creditCardRepository;
-        this.applicationEventPublisher = applicationEventPublisher;
-    }
-
-    @Transactional
     public void withdraw(UUID cardId, BigDecimal amount) {
-        CreditCard creditCard = creditCardRepository.findById(cardId)
-                .orElseThrow(() -> new IllegalStateException("Cannot find card with id " + cardId));
-        CardWithdrawn event = creditCard.withdraw(amount);
-        applicationEventPublisher.publishEvent(event);
+        repository.apply(cardId,creditCard -> creditCard.withdraw(amount));
     }
 }

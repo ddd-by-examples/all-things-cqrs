@@ -1,6 +1,6 @@
 package io.dddbyexamples.cqrs.read;
 
-import io.dddbyexamples.cqrs.write.domain.CardWithdrawn;
+import io.dddbyexamples.cqrs.write.domain.produces.CardWithdrawn;
 import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;

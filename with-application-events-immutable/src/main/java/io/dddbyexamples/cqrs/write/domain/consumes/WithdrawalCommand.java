@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.write.domain;
+package io.dddbyexamples.cqrs.write.domain.consumes;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

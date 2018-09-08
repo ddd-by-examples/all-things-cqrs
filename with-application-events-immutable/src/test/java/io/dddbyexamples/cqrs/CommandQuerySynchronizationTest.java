@@ -1,9 +1,9 @@
 package io.dddbyexamples.cqrs;
 
-import io.dddbyexamples.cqrs.write.domain.CreditCard;
-import io.dddbyexamples.cqrs.write.domain.CreditCardRepository;
 import io.dddbyexamples.cqrs.read.WithdrawalReadModel;
-import io.dddbyexamples.cqrs.write.domain.WithdrawalCommand;
+import io.dddbyexamples.cqrs.write.domain.ports.CreditCardDao;
+import io.dddbyexamples.cqrs.write.domain.consumes.WithdrawalCommand;
+import io.dddbyexamples.cqrs.write.domain.ports.CreditCardRecord;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,7 +28,8 @@ import static org.springframework.http.HttpMethod.GET;
 public class CommandQuerySynchronizationTest {
 
     @Autowired TestRestTemplate restTemplate;
-    @Autowired CreditCardRepository creditCardRepository;
+    @Autowired
+    CreditCardDao creditCardDao;
 
     @Test
     public void shouldSynchronizeQuerySideAfterSendingACommand() {
@@ -40,16 +41,16 @@ public class CommandQuerySynchronizationTest {
         thereIsOneWithdrawalOf(TEN, cardUUid);
     }
 
-    UUID thereIsCreditCardWithLimit(BigDecimal limit) {
-        CreditCard creditCard = new CreditCard(limit);
-        return creditCardRepository.save(creditCard).getId();
+    private UUID thereIsCreditCardWithLimit(BigDecimal limit) {
+        CreditCardRecord creditCard = new CreditCardRecord(limit);
+        return creditCardDao.save(creditCard).getId();
     }
 
-    void clientWantsToWithdraw(BigDecimal amount, UUID cardId) {
+    private void clientWantsToWithdraw(BigDecimal amount, UUID cardId) {
         restTemplate.postForEntity("/withdrawals", new WithdrawalCommand(cardId, amount), Void.class);
     }
 
-    void thereIsOneWithdrawalOf(BigDecimal amount, UUID cardId) {
+    private void thereIsOneWithdrawalOf(BigDecimal amount, UUID cardId) {
         Map<String, Object> params = new HashMap<>();
         params.put("uuid", cardId);
         List<WithdrawalReadModel> withdrawals =

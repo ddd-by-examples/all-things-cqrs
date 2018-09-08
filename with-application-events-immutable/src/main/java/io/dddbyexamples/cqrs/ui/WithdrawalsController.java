@@ -1,6 +1,6 @@
 package io.dddbyexamples.cqrs.ui;
 
-import io.dddbyexamples.cqrs.write.domain.WithdrawalCommand;
+import io.dddbyexamples.cqrs.write.domain.consumes.WithdrawalCommand;
 import io.dddbyexamples.cqrs.write.domain.WithdrawalProcess;
 import io.dddbyexamples.cqrs.read.WithdrawalReader;
 import io.dddbyexamples.cqrs.read.WithdrawalReadModel;
