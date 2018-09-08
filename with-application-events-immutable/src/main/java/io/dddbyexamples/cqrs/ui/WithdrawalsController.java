@@ -1,6 +1,7 @@
 package io.dddbyexamples.cqrs.ui;
 
-import io.dddbyexamples.cqrs.application.WithdrawalProcess;
+import io.dddbyexamples.cqrs.write.domain.WithdrawalCommand;
+import io.dddbyexamples.cqrs.write.domain.WithdrawalProcess;
 import io.dddbyexamples.cqrs.read.WithdrawalFinder;
 import io.dddbyexamples.cqrs.read.WithdrawalReadModel;
 import lombok.AllArgsConstructor;

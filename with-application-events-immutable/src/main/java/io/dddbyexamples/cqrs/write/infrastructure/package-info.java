@@ -1,0 +1,1 @@
+package io.dddbyexamples.cqrs.write.infrastructure;

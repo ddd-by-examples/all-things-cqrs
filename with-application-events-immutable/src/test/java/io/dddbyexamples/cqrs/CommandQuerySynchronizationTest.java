@@ -1,9 +1,9 @@
 package io.dddbyexamples.cqrs;
 
-import io.dddbyexamples.cqrs.model.CreditCard;
-import io.dddbyexamples.cqrs.persistance.CreditCardRepository;
+import io.dddbyexamples.cqrs.write.domain.CreditCard;
+import io.dddbyexamples.cqrs.write.domain.CreditCardRepository;
 import io.dddbyexamples.cqrs.read.WithdrawalReadModel;
-import io.dddbyexamples.cqrs.ui.WithdrawalCommand;
+import io.dddbyexamples.cqrs.write.domain.WithdrawalCommand;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

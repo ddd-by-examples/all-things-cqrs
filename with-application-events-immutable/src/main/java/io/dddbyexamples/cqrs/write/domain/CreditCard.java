@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.model;
+package io.dddbyexamples.cqrs.write.domain;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.model;
+package io.dddbyexamples.cqrs.write.domain;
 
 import java.math.BigDecimal;
 import java.time.Instant;

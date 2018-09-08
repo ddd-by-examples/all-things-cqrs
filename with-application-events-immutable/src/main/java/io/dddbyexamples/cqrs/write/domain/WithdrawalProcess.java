@@ -1,8 +1,5 @@
-package io.dddbyexamples.cqrs.application;
+package io.dddbyexamples.cqrs.write.domain;
 
-import io.dddbyexamples.cqrs.model.CardWithdrawn;
-import io.dddbyexamples.cqrs.model.CreditCard;
-import io.dddbyexamples.cqrs.persistance.CreditCardRepository;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Service;
 

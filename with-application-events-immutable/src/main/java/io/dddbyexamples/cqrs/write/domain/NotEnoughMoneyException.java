@@ -1,9 +1,9 @@
-package io.dddbyexamples.cqrs.model;
+package io.dddbyexamples.cqrs.write.domain;
 
 import java.math.BigDecimal;
 import java.util.UUID;
 
-class NotEnoughMoneyException extends RuntimeException {
+public class NotEnoughMoneyException extends RuntimeException {
 
     NotEnoughMoneyException(UUID cardNo, BigDecimal wanted, BigDecimal availableBalance) {
         super(String.format("Card %s not able to withdraw %s. Balance is %s", cardNo, wanted, availableBalance));
