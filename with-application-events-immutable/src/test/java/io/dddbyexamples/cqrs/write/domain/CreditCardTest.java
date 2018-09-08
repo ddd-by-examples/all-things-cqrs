@@ -1,10 +1,12 @@
 package io.dddbyexamples.cqrs.write.domain;
 
+import io.dddbyexamples.cqrs.write.domain.consumes.WithdrawalCommand;
 import io.dddbyexamples.cqrs.write.domain.ports.CreditCardRecord;
 import io.dddbyexamples.cqrs.write.domain.produces.CardWithdrawn;
 import org.junit.Test;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.util.UUID;
 
 import static java.math.BigDecimal.ONE;
@@ -17,27 +19,26 @@ public class CreditCardTest {
     @Test
     public void shouldNotBeAbleToWithdrawWhenThereIsNotEnoughMoney() {
         //given
-        CreditCardRecord record = new CreditCardRecord(UUID.randomUUID(),TEN);
-        CreditCard creditCard = new CreditCard(record);
+        UUID cardId = UUID.randomUUID();
+        CreditCard creditCard = new CreditCard(new CreditCardRecord(cardId, TEN));
 
         //expect
         assertThatExceptionOfType(NotEnoughMoneyException.class)
-                .isThrownBy(
-                () -> creditCard.withdraw(new BigDecimal(100)));
+            .isThrownBy(
+                () -> creditCard.withdraw(new WithdrawalCommand(cardId, new BigDecimal(100))));
     }
 
     @Test
     public void shouldBeAbleToWithdrawMoney() {
         //given
         UUID cardId = UUID.randomUUID();
-        CreditCardRecord record = new CreditCardRecord(cardId,TEN);
-        CreditCard creditCard = new CreditCard(record);
+        CreditCard creditCard = new CreditCard(new CreditCardRecord(cardId, TEN));
 
         //when
-        CardWithdrawn event = creditCard.withdraw(ONE);
+        CardWithdrawn event = creditCard.withdraw(new WithdrawalCommand(cardId,ONE));
 
         //expect
-        assertThat(event).isEqualTo(new CardWithdrawn(cardId, ONE));
+        assertThat(event).isEqualTo(new CardWithdrawn(cardId, ONE.setScale(2, RoundingMode.UNNECESSARY)));
     }
 
 }

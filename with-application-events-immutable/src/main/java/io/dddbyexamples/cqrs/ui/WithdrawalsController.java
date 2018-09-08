@@ -22,7 +22,7 @@ class WithdrawalsController {
 
     @PostMapping
     ResponseEntity withdraw(@RequestBody WithdrawalCommand withdrawalCommand) {
-        withdrawalProcess.withdraw(withdrawalCommand.getCard(), withdrawalCommand.getAmount());
+        withdrawalProcess.withdraw(withdrawalCommand);
         return ResponseEntity.ok().build();
     }
 

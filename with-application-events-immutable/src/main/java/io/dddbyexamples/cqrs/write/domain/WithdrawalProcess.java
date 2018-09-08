@@ -1,5 +1,6 @@
 package io.dddbyexamples.cqrs.write.domain;
 
+import io.dddbyexamples.cqrs.write.domain.consumes.WithdrawalCommand;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -12,7 +13,7 @@ public class WithdrawalProcess {
 
     private final CreditCardRepository repository;
 
-    public void withdraw(UUID cardId, BigDecimal amount) {
-        repository.apply(cardId,creditCard -> creditCard.withdraw(amount));
+    public void withdraw(WithdrawalCommand command) {
+        repository.apply(command.getCard(),creditCard -> creditCard.withdraw(command));
     }
 }
