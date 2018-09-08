@@ -19,6 +19,7 @@
 		<module>with-log-tailing</module>
 		<module>with-events</module>
 		<module>with-application-events</module>
+		<module>with-application-events-immutable</module>
 
 	</modules>
 
