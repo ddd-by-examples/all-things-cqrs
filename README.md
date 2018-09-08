@@ -20,7 +20,7 @@ Sample applications are based on a simple domain that serves credit cards. There
 *  Money can be withdrawn from a card (*Withdraw* **command**)
 *  List of withdrawals from a card can be read (**query**)
 
-The imporant is that:
+The important is that:
 ```
 After a successful Withdraw command, a withdrawal should be seen in a result from list of withdrawals query.
 ```
