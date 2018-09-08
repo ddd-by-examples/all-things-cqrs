@@ -1,8 +1,8 @@
 package io.dddbyexamples.cqrs;
 
 import io.dddbyexamples.cqrs.read.WithdrawalReadModel;
-import io.dddbyexamples.cqrs.write.domain.ports.CreditCardDao;
 import io.dddbyexamples.cqrs.write.domain.consumes.WithdrawalCommand;
+import io.dddbyexamples.cqrs.write.domain.ports.CreditCardDao;
 import io.dddbyexamples.cqrs.write.domain.ports.CreditCardRecord;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -18,7 +18,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
-import static java.math.BigDecimal.TEN;
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.springframework.boot.test.context.SpringBootTest.WebEnvironment.RANDOM_PORT;
 import static org.springframework.http.HttpMethod.GET;
@@ -28,22 +27,25 @@ import static org.springframework.http.HttpMethod.GET;
 public class CommandQuerySynchronizationTest {
 
     @Autowired TestRestTemplate restTemplate;
-    @Autowired
-    CreditCardDao creditCardDao;
+    @Autowired CreditCardDao creditCardDao;
 
     @Test
     public void shouldSynchronizeQuerySideAfterSendingACommand() {
         // given
+        BigDecimal amount = new BigDecimal("12.22");
+
         UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100));
         // when
-        clientWantsToWithdraw(TEN, cardUUid);
+        clientWantsToWithdraw(amount, cardUUid);
         // then
-        thereIsOneWithdrawalOf(TEN, cardUUid);
+        thereIsOneWithdrawalOf(amount, cardUUid);
     }
 
     private UUID thereIsCreditCardWithLimit(BigDecimal limit) {
-        CreditCardRecord creditCard = new CreditCardRecord(limit);
-        return creditCardDao.save(creditCard).getId();
+        UUID id = UUID.randomUUID();
+        CreditCardRecord creditCard = new CreditCardRecord(id,limit);
+        creditCardDao.save(creditCard);
+        return id;
     }
 
     private void clientWantsToWithdraw(BigDecimal amount, UUID cardId) {
@@ -61,8 +63,7 @@ public class CommandQuerySynchronizationTest {
                         },
                         params)
                         .getBody();
-        assertThat(withdrawals).hasSize(1);
-        assertThat(withdrawals.get(0).getAmount()).isEqualByComparingTo(amount);
+        assertThat(withdrawals).containsOnly(new WithdrawalReadModel(cardId,amount));
     }
 
 }

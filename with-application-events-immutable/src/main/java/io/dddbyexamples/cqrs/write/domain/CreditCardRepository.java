@@ -21,7 +21,7 @@ class CreditCardRepository {
     @Transactional
     void apply(UUID cardId, Function<CreditCard, DomainEvent> function) {
 
-        CreditCardRecord record = dao.findById(cardId)
+        CreditCardRecord record = dao.load(cardId)
             .orElseThrow(() -> new IllegalStateException("Cannot find card with id " + cardId));
         DomainEvent event = function.apply(new CreditCard(record));
         record.apply(event);
