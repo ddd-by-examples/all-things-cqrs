@@ -2,7 +2,7 @@ package io.dddbyexamples.cqrs.ui;
 
 import io.dddbyexamples.cqrs.write.domain.WithdrawalCommand;
 import io.dddbyexamples.cqrs.write.domain.WithdrawalProcess;
-import io.dddbyexamples.cqrs.read.WithdrawalFinder;
+import io.dddbyexamples.cqrs.read.WithdrawalReader;
 import io.dddbyexamples.cqrs.read.WithdrawalReadModel;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.UUID;
 class WithdrawalsController {
 
     private final WithdrawalProcess withdrawalProcess;
-    private final WithdrawalFinder finder;
+    private final WithdrawalReader finder;
 
     @PostMapping
     ResponseEntity withdraw(@RequestBody WithdrawalCommand withdrawalCommand) {

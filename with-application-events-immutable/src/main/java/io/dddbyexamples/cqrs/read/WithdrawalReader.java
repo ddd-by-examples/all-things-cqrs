@@ -11,10 +11,9 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class WithdrawalFinder {
+public class WithdrawalReader {
 
     private final JdbcTemplate jdbcTemplate;
-
 
     public List<WithdrawalReadModel> loadWithdrawalsFor(@PathVariable UUID cardId) {
         return jdbcTemplate.query("SELECT * FROM WITHDRAWAL WHERE CARD_ID = ?", new Object[]{cardId},

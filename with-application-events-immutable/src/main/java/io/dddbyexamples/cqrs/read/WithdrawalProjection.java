@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 import java.util.UUID;
 
 @Service
-class ReadModelUpdater {
+class WithdrawalProjection {
 
     private final JdbcTemplate jdbcTemplate;
 
-    ReadModelUpdater(JdbcTemplate jdbcTemplate) {
+    WithdrawalProjection(JdbcTemplate jdbcTemplate) {
         this.jdbcTemplate = jdbcTemplate;
     }
 
