@@ -2,7 +2,7 @@ package io.dddbyexamples.cqrs;
 
 import io.dddbyexamples.cqrs.model.CreditCard;
 import io.dddbyexamples.cqrs.persistance.CreditCardRepository;
-import io.dddbyexamples.cqrs.ui.WithdrawalDto;
+import io.dddbyexamples.cqrs.read.WithdrawalReadModel;
 import io.dddbyexamples.cqrs.ui.WithdrawalCommand;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -52,11 +52,11 @@ public class CommandQuerySynchronizationTest {
     void thereIsOneWithdrawalOf(BigDecimal amount, UUID cardId) {
         Map<String, Object> params = new HashMap<>();
         params.put("uuid", cardId);
-        List<WithdrawalDto> withdrawals =
+        List<WithdrawalReadModel> withdrawals =
                 restTemplate.exchange(
                         "/withdrawals?cardId={uuid}",
                         GET, null,
-                        new ParameterizedTypeReference<List<WithdrawalDto>>() {
+                        new ParameterizedTypeReference<List<WithdrawalReadModel>>() {
                         },
                         params)
                         .getBody();

@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.sink;
+package io.dddbyexamples.cqrs.read;
 
 import io.dddbyexamples.cqrs.model.CardWithdrawn;
 import org.springframework.context.event.EventListener;
