@@ -261,7 +261,6 @@ Code can be found under [events](https://github.com/ddd-by-examples/all-things-c
 
 
 Additional components:
-*  MySQL to keep credit cards.
 *  [MongoDB](https://www.mongodb.com/what-is-mongodb) to keep withdrawals.
 *  Spring Data Reactive MongoDb to reactively talk to Mongo
 *  [Project Reactor](http://projectreactor.io) to serve non-blocking web-service
