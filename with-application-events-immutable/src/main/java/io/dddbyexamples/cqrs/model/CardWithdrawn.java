@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.write.domain.produces;
+package io.dddbyexamples.cqrs.model;
 
 import io.dddbyexamples.cqrs.DomainEvent;
 import lombok.Value;

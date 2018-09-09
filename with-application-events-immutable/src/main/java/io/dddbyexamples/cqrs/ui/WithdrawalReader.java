@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.read;
+package io.dddbyexamples.cqrs.ui;
 
 import lombok.AllArgsConstructor;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -15,7 +15,7 @@ public class WithdrawalReader {
 
     private final JdbcTemplate jdbcTemplate;
 
-    public List<WithdrawalReadModel> loadWithdrawalsFor(@PathVariable UUID cardId) {
+    List<WithdrawalReadModel> loadWithdrawalsFor(@PathVariable UUID cardId) {
         return jdbcTemplate.query("SELECT * FROM WITHDRAWAL WHERE CARD_ID = ?", new Object[]{cardId},
                 new BeanPropertyRowMapper<>(WithdrawalReadModel.class));
     }

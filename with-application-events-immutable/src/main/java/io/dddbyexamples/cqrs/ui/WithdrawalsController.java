@@ -1,9 +1,6 @@
 package io.dddbyexamples.cqrs.ui;
 
-import io.dddbyexamples.cqrs.write.domain.consumes.WithdrawalCommand;
-import io.dddbyexamples.cqrs.write.domain.WithdrawalProcess;
-import io.dddbyexamples.cqrs.read.WithdrawalReader;
-import io.dddbyexamples.cqrs.read.WithdrawalReadModel;
+import io.dddbyexamples.cqrs.model.WithdrawalProcess;
 import lombok.AllArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;

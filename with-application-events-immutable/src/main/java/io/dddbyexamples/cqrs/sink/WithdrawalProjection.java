@@ -1,13 +1,13 @@
-package io.dddbyexamples.cqrs.read;
+package io.dddbyexamples.cqrs.sink;
 
-import io.dddbyexamples.cqrs.write.domain.produces.CardWithdrawn;
+import io.dddbyexamples.cqrs.model.CardWithdrawn;
 import org.springframework.context.event.EventListener;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import java.util.UUID;
 
-@Service
+@Component
 class WithdrawalProjection {
 
     private final JdbcTemplate jdbcTemplate;

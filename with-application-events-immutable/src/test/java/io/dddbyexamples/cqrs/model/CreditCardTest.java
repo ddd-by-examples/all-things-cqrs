@@ -1,8 +1,7 @@
-package io.dddbyexamples.cqrs.write.domain;
+package io.dddbyexamples.cqrs.model;
 
-import io.dddbyexamples.cqrs.write.domain.consumes.WithdrawalCommand;
-import io.dddbyexamples.cqrs.write.domain.ports.CreditCardRecord;
-import io.dddbyexamples.cqrs.write.domain.produces.CardWithdrawn;
+import io.dddbyexamples.cqrs.ui.WithdrawalCommand;
+import io.dddbyexamples.cqrs.model.ports.CreditCardRecord;
 import org.junit.Test;
 
 import java.math.BigDecimal;

@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.read;
+package io.dddbyexamples.cqrs.ui;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

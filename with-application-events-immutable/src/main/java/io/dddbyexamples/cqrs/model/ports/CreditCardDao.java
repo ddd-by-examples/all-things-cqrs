@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.write.domain.ports;
+package io.dddbyexamples.cqrs.model.ports;
 
 import java.util.Optional;
 import java.util.UUID;

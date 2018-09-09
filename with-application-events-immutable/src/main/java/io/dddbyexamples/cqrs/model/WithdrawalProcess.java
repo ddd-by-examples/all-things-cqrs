@@ -1,11 +1,8 @@
-package io.dddbyexamples.cqrs.write.domain;
+package io.dddbyexamples.cqrs.model;
 
-import io.dddbyexamples.cqrs.write.domain.consumes.WithdrawalCommand;
+import io.dddbyexamples.cqrs.ui.WithdrawalCommand;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
-import java.math.BigDecimal;
-import java.util.UUID;
 
 @Service
 @AllArgsConstructor

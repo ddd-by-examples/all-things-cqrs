@@ -1,8 +1,8 @@
-package io.dddbyexamples.cqrs.write.domain;
+package io.dddbyexamples.cqrs.model;
 
 import io.dddbyexamples.cqrs.DomainEvent;
-import io.dddbyexamples.cqrs.write.domain.ports.CreditCardDao;
-import io.dddbyexamples.cqrs.write.domain.ports.CreditCardRecord;
+import io.dddbyexamples.cqrs.model.ports.CreditCardDao;
+import io.dddbyexamples.cqrs.model.ports.CreditCardRecord;
 import lombok.AllArgsConstructor;
 import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;

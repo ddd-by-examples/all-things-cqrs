@@ -1,7 +1,7 @@
-package io.dddbyexamples.cqrs.write.domain.ports;
+package io.dddbyexamples.cqrs.model.ports;
 
 import io.dddbyexamples.cqrs.DomainEvent;
-import io.dddbyexamples.cqrs.write.domain.produces.CardWithdrawn;
+import io.dddbyexamples.cqrs.model.CardWithdrawn;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

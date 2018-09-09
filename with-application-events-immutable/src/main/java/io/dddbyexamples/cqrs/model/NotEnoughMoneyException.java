@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.write.domain;
+package io.dddbyexamples.cqrs.model;
 
 import java.math.BigDecimal;
 import java.util.UUID;

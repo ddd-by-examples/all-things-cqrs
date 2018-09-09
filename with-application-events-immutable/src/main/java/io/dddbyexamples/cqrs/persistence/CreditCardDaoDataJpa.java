@@ -1,6 +1,6 @@
-package io.dddbyexamples.cqrs.write.infrastructure;
+package io.dddbyexamples.cqrs.persistence;
 
-import io.dddbyexamples.cqrs.write.domain.ports.CreditCardRecord;
+import io.dddbyexamples.cqrs.model.ports.CreditCardRecord;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;

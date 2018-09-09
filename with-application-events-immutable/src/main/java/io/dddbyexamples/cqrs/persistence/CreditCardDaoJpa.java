@@ -1,7 +1,7 @@
-package io.dddbyexamples.cqrs.write.infrastructure;
+package io.dddbyexamples.cqrs.persistence;
 
-import io.dddbyexamples.cqrs.write.domain.ports.CreditCardDao;
-import io.dddbyexamples.cqrs.write.domain.ports.CreditCardRecord;
+import io.dddbyexamples.cqrs.model.ports.CreditCardDao;
+import io.dddbyexamples.cqrs.model.ports.CreditCardRecord;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Repository;
 
