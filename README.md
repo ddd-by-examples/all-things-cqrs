@@ -74,7 +74,7 @@ Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-ex
 
 ### CQRS with application service as explicit synchronization
 
-Code can be found under [application-process](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/explicit-with-dto) module. Same version, but with JPA entities as results of a query can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/explicit-with-entity).
+Code can be found under [explicit-with-dto](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/explicit-with-dto) module. Same version, but with JPA entities as results of a query can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/explicit-with-entity).
 
 Running the app:
 ```
