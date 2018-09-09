@@ -37,7 +37,7 @@ public class CreditCardTest {
         CardWithdrawn event = creditCard.withdraw(new WithdrawalCommand(cardId,ONE));
 
         //expect
-        assertThat(event).isEqualTo(new CardWithdrawn(cardId, ONE.setScale(2, RoundingMode.UNNECESSARY)));
+        assertThat(event).isEqualTo(new CardWithdrawn(cardId, ONE));
     }
 
 }
