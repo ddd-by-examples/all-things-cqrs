@@ -11,12 +11,12 @@ import java.util.UUID;
 
 @Service
 @AllArgsConstructor
-public class WithdrawalReader {
+public class WithdrawalsReader {
 
     private final JdbcTemplate jdbcTemplate;
 
-    List<WithdrawalReadModel> loadWithdrawalsFor(@PathVariable UUID cardId) {
+    List<WithdrawalsReadModel> loadWithdrawalsFor(@PathVariable UUID cardId) {
         return jdbcTemplate.query("SELECT * FROM WITHDRAWAL WHERE CARD_ID = ?", new Object[]{cardId},
-                new BeanPropertyRowMapper<>(WithdrawalReadModel.class));
+                new BeanPropertyRowMapper<>(WithdrawalsReadModel.class));
     }
 }

@@ -1,6 +1,6 @@
 package io.dddbyexamples.cqrs;
 
-import io.dddbyexamples.cqrs.ui.WithdrawalReadModel;
+import io.dddbyexamples.cqrs.ui.WithdrawalsReadModel;
 import io.dddbyexamples.cqrs.ui.WithdrawalCommand;
 import io.dddbyexamples.cqrs.model.ports.CreditCardDao;
 import io.dddbyexamples.cqrs.model.ports.CreditCardRecord;
@@ -55,15 +55,15 @@ public class CommandQuerySynchronizationTest {
     private void thereIsOneWithdrawalOf(BigDecimal amount, UUID cardId) {
         Map<String, Object> params = new HashMap<>();
         params.put("uuid", cardId);
-        List<WithdrawalReadModel> withdrawals =
+        List<WithdrawalsReadModel> withdrawals =
                 restTemplate.exchange(
                         "/withdrawals?cardId={uuid}",
                         GET, null,
-                        new ParameterizedTypeReference<List<WithdrawalReadModel>>() {
+                        new ParameterizedTypeReference<List<WithdrawalsReadModel>>() {
                         },
                         params)
                         .getBody();
-        assertThat(withdrawals).containsOnly(new WithdrawalReadModel(cardId,amount));
+        assertThat(withdrawals).containsOnly(new WithdrawalsReadModel(cardId,amount));
     }
 
 }

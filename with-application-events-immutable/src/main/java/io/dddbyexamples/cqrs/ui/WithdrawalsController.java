@@ -15,7 +15,7 @@ import java.util.UUID;
 class WithdrawalsController {
 
     private final WithdrawalProcess withdrawalProcess;
-    private final WithdrawalReader finder;
+    private final WithdrawalsReader finder;
 
     @PostMapping
     ResponseEntity withdraw(@RequestBody WithdrawalCommand withdrawalCommand) {
@@ -24,7 +24,7 @@ class WithdrawalsController {
     }
 
     @GetMapping
-    ResponseEntity<List<WithdrawalReadModel>> withdrawals(@PathParam("cardId") String cardId) {
+    ResponseEntity<List<WithdrawalsReadModel>> withdrawals(@PathParam("cardId") String cardId) {
         return ResponseEntity.ok().body(finder.loadWithdrawalsFor(UUID.fromString(cardId)));
     }
 
