@@ -30,9 +30,10 @@ We will do it in the following way:
 02) CQRS with application service as explicit synchronization
 03) CQRS with application service as explicit synchronization (JPA)
 04) CQRS with application service as implicit synchronization
-05) CQRS with trigger as implicit synchronization
-06) CQRS with transaction log tailing as synchronization
-07) CQRS with Domain Events as synchronization
+05) CQRS with application service as implicit synchronization (IMMUTABLE)
+06) CQRS with trigger as implicit synchronization
+07) CQRS with transaction log tailing as synchronization
+08) CQRS with Domain Events as synchronization
 
 EOF
 
@@ -41,6 +42,7 @@ function run_tests() {
     default_tests "explicit-with-dto" '"amount":10.00'
     default_tests "explicit-with-entity" '"amount":10.00'
     default_tests "with-application-events" '"amount":10.00'
+    default_tests "with-application-events-immutable" '"amount":10.00'
     default_tests "with-trigger" '"amount":10.00'
     log_tailing
     with_events
