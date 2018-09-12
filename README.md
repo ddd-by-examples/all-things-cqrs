@@ -117,6 +117,8 @@ Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-ex
 
 Code can be found under [with-application-events](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-application-events) module.
 
+There is also a version with immutable domain module which just returns events. It Can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-application-events-immutable).
+
 Running the app:
 ```
 mvn spring-boot:run
@@ -153,47 +155,6 @@ Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-ex
         thereIsOneWithdrawalOf(TEN, cardUUid);
     }
 ```
-### CQRS with spring application events as implicit synchronization and immutable domain model
-
-Code can be found under [with-application-events-immutable](https://github.com/ddd-by-examples/all-things-cqrs/tree/master/with-application-events-immutable) module.
-
-Running the app:
-```
-mvn spring-boot:run
-```
-
-A sample *Withdraw* command:
-
-```
-curl localhost:8080/withdrawals -X POST --header 'Content-Type: application/json' -d '{"card":"3a3e99f0-5ad9-47fa-961d-d75fab32ef0e", "amount": 10.00}' --verbose
-```
-Verifed by a query:
-```
-curl http://localhost:8080/withdrawals?cardId=3a3e99f0-5ad9-47fa-961d-d75fab32ef0e --verbose
-```
-Expected result:
-```
-[{"amount":10.00}]
-```
-
-Architecture overview:
-
-Automatic E2E test for REST API can be found [here](https://github.com/ddd-by-examples/all-things-cqrs/blob/master/with-application-events-immutable/src/test/java/io/dddbyexamples/cqrs/CommandQuerySynchronizationTest.java):
-
-```java
-        @Test
-        public void shouldSynchronizeQuerySideAfterSendingACommand() {
-            // given
-            BigDecimal amount = new BigDecimal("12.22");
-    
-            UUID cardUUid = thereIsCreditCardWithLimit(new BigDecimal(100));
-            // when
-            clientWantsToWithdraw(amount, cardUUid);
-            // then
-            thereIsOneWithdrawalOf(amount, cardUUid);
-        }
-```
-
 
 ### CQRS with trigger as implicit synchronization
 
