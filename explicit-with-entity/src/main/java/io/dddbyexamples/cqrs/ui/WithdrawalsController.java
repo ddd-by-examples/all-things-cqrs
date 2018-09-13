@@ -2,7 +2,7 @@ package io.dddbyexamples.cqrs.ui;
 
 import io.dddbyexamples.cqrs.application.WithdrawalProcess;
 import io.dddbyexamples.cqrs.model.Withdrawal;
-import io.dddbyexamples.cqrs.persistance.WithdrawalRepository;
+import io.dddbyexamples.cqrs.persistence.WithdrawalRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;

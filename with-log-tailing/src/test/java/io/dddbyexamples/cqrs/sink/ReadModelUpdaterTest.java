@@ -3,7 +3,7 @@ package io.dddbyexamples.cqrs.sink;
 
 import io.dddbyexamples.cqrs.model.CreditCard;
 import io.dddbyexamples.cqrs.model.Withdrawal;
-import io.dddbyexamples.cqrs.persistance.CreditCardRepository;
+import io.dddbyexamples.cqrs.persistence.CreditCardRepository;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

@@ -14,5 +14,5 @@ CREATE TRIGGER ON_CARD_WITHDRAWN
   AFTER UPDATE
   ON CREDIT_CARD
   FOR EACH ROW
-CALL "io.dddbyexamples.cqrs.persistance.CreditCardUsedTrigger";
+CALL "io.dddbyexamples.cqrs.persistence.CreditCardUsedTrigger";
 

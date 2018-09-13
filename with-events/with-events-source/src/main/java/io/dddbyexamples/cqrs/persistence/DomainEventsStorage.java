@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.persistance;
+package io.dddbyexamples.cqrs.persistence;
 
 import org.springframework.data.repository.CrudRepository;
 
