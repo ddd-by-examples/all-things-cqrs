@@ -1,7 +1,7 @@
 package io.dddbyexamples.cqrs.application;
 
 import io.dddbyexamples.cqrs.model.CreditCard;
-import io.dddbyexamples.cqrs.persistance.CreditCardRepository;
+import io.dddbyexamples.cqrs.persistence.CreditCardRepository;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Service;
 

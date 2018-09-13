@@ -1,6 +1,6 @@
 package io.dddbyexamples.cqrs.ui;
 
-import io.dddbyexamples.cqrs.persistance.WithdrawalsRepository;
+import io.dddbyexamples.cqrs.persistence.WithdrawalsRepository;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 import reactor.core.publisher.Flux;

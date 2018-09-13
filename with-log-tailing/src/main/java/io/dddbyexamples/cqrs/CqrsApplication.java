@@ -1,6 +1,6 @@
 package io.dddbyexamples.cqrs;
 
-import io.dddbyexamples.cqrs.persistance.CreditCardRepository;
+import io.dddbyexamples.cqrs.persistence.CreditCardRepository;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 

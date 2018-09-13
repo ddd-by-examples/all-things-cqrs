@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.persistance;
+package io.dddbyexamples.cqrs.persistence;
 
 import io.dddbyexamples.cqrs.ui.WithdrawalDto;
 import org.springframework.data.repository.reactive.ReactiveCrudRepository;

@@ -1,7 +1,7 @@
 package io.dddbyexamples.cqrs.sink;
 
 import io.dddbyexamples.cqrs.model.Withdrawal;
-import io.dddbyexamples.cqrs.persistance.WithdrawalRepository;
+import io.dddbyexamples.cqrs.persistence.WithdrawalRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.cloud.stream.annotation.StreamListener;
 import org.springframework.cloud.stream.messaging.Sink;

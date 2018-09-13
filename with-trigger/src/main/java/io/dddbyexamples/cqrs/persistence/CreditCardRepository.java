@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.persistance;
+package io.dddbyexamples.cqrs.persistence;
 
 import io.dddbyexamples.cqrs.model.CreditCard;
 import org.springframework.data.jpa.repository.JpaRepository;

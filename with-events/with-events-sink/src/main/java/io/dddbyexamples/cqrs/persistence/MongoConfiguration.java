@@ -1,4 +1,4 @@
-package io.dddbyexamples.cqrs.persistance;
+package io.dddbyexamples.cqrs.persistence;
 
 import com.mongodb.reactivestreams.client.MongoClient;
 import com.mongodb.reactivestreams.client.MongoClients;
