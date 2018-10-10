@@ -319,3 +319,6 @@ Also it is possible to test if a successful withdrawal is followed eventually by
         await().atMost(FIVE_SECONDS).until(() -> eventAboutWithdrawalWasSent(TEN, cardUUid));
     }
 ```
+
+### CQRS with Axon Framework
+Take a look [here](https://github.com/pivotalsoftware/ESarch)
