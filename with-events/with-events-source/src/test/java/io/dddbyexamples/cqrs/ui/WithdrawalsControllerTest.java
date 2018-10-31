@@ -41,7 +41,7 @@ public class WithdrawalsControllerTest {
         request.setCard(cardUUID);
 
         //Act
-        ResultActions result = mockMvc.perform(post("/zone/category")
+        ResultActions result = mockMvc.perform(post("/withdrawals")
                 .contentType(MediaType.APPLICATION_JSON).content(jsonHelper.serializeToJson(request)));
 
         //Assert
