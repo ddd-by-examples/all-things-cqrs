@@ -1,7 +1,7 @@
 package io.dddbyexamples.cqrs.ui;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dddbyexamples.cqrs.application.WithdrawalProcess;
-import io.dddbyexamples.cqrs.helper.JsonHelper;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,11 +26,11 @@ public class WithdrawalsControllerTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    ObjectMapper objectMapper;
+
     @MockBean
     private WithdrawalProcess withdrawalProcess;
-
-
-    private JsonHelper jsonHelper = new JsonHelper();
 
     @Test
     public void shouldWithdrawnMoney() throws Exception {
@@ -42,7 +42,7 @@ public class WithdrawalsControllerTest {
 
         //Act
         ResultActions result = mockMvc.perform(post("/withdrawals")
-                .contentType(MediaType.APPLICATION_JSON).content(jsonHelper.serializeToJson(request)));
+                .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(request)));
 
         //Assert
         verify(withdrawalProcess).withdraw(cardUUID, BigDecimal.ONE);
