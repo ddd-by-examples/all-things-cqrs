@@ -10,7 +10,7 @@ These instructions will get you and overview of how to synchronize two different
 
 What things you need to run the software:
 
-* Java 8+
+* Java 11+
 * [docker-compose](https://docs.docker.com/compose/)
 
 ## Overview
